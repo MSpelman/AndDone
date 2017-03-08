@@ -31,4 +31,14 @@ public class Schedule {
         key = newDay.getDate();
         days.put(key, newDay);
     }
+
+    /**
+     * Retrieves the Days associated with this Schedule
+     * @return An array with the Days
+     */
+    public Day[] getDays() {
+        Day[] dayArray = new Day[days.size()];
+        days.values().toArray(dayArray);
+        return dayArray;
+    }
 }

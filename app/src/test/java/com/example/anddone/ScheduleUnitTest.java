@@ -18,11 +18,14 @@ public class ScheduleUnitTest {
     public void initialize() {
         user = new User();
         schedule = new Schedule(user);
-        day = new Day(new Date());
     }
 
     @Test
     public void addDayTest() throws Exception {
-        assertEquals(4, 2 + 2);
+        day = new Day(new Date());
+        Day[] dayArray = schedule.getDays();
+        int numberOfDays = dayArray.length;
+        schedule.addDay(day);
+        assertEquals((numberOfDays + 1), schedule.getDays().length);
     }
 }
