@@ -46,4 +46,14 @@ public class Day {
     public void addTask(Task newTask) {
         tasks.add(newTask);
     }
+
+    /**
+     * Retrieves the Tasks associated with this Day
+     * @return An array with the Tasks
+     */
+    public Task[] getTasks() {
+        Task[] taskArray = new Task[tasks.size()];
+        tasks.toArray(taskArray);
+        return taskArray;
+    }
 }

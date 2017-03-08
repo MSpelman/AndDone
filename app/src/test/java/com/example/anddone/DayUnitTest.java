@@ -37,7 +37,11 @@ public class DayUnitTest {
 
     @Test
     public void addTaskTest() throws Exception {
-        assertEquals(4, 2 + 2);
+        Task task = new Task("Walk Dog", "Walk the dog around the block");
+        Task[] taskArray = day.getTasks();
+        int numberOfTasks = taskArray.length;
+        day.addTask(task);
+        assertEquals((numberOfTasks + 1), day.getTasks().length);
     }
 
 }

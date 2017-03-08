@@ -58,4 +58,12 @@ public class Task implements IScheduleItem {
     public void completeTask() {
         completed = true;
     }
+
+    /**
+     * Convenience method for determining if the Task is completed
+     * @return true if the Task is complete, else false
+     */
+    public boolean isCompleted() {
+        return completed;
+    }
 }
