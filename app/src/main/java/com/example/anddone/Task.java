@@ -38,6 +38,7 @@ public class Task implements IScheduleItem {
         this.name = name;
         this.description = description;
         this.completed = false;
+        sharedWith = new ArrayList<>();
     }
 
     public enum Priority {
@@ -65,5 +66,24 @@ public class Task implements IScheduleItem {
      */
     public boolean isCompleted() {
         return completed;
+    }
+
+    /**
+     * Shares the Task with another user
+     * @param user  The user to share the Task with
+     */
+    public void shareWith(User user) {
+        sharedWith.add(user);
+        // Code to actually share Task goes here
+    }
+
+    /**
+     * Retrieves the users this Task has been shared with
+     * @return An array with the Users
+     */
+    public User[] getSharedWith() {
+        User[] userArray = new User[sharedWith.size()];
+        sharedWith.toArray(userArray);
+        return userArray;
     }
 }

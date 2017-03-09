@@ -10,16 +10,27 @@ import static org.junit.Assert.*;
  */
 public class TaskUnitTest {
     Task task;
+    User user;
 
     @Before
     public void initialize() {
         task = new Task("Walk Dog", "Walk the dog around the block");
+        user = new User();
     }
+
 
     @Test
     public void completeTaskTest() throws Exception {
         assertEquals(false, task.isCompleted());
         task.completeTask();
         assertEquals(true, task.isCompleted());
+    }
+
+    @Test
+    public void shareWithTest() throws Exception {
+        User[] userArray = task.getSharedWith();
+        int numberOfUsers = userArray.length;
+        task.shareWith(user);
+        assertEquals((numberOfUsers + 1), task.getSharedWith().length);
     }
 }
