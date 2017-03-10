@@ -19,7 +19,9 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class TodoActivity extends AppCompatActivity {
+import com.example.anddone.dummy.DummyContent;
+
+public class TodoActivity extends AppCompatActivity implements TodoTabFragment.OnListFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -140,8 +142,9 @@ public class TodoActivity extends AppCompatActivity {
 
             // TODO change into a switch case based on position, each case instantiating
             // the correct fragment
+            if (position == 0) return TodoTabFragment.newInstance(position + 1);
 
-            return PlaceholderFragment.newInstance(position + 1);
+             else return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
@@ -164,5 +167,9 @@ public class TodoActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
     }
 }
