@@ -15,7 +15,7 @@ public class TaskUnitTest {
     @Before
     public void initialize() {
         task = new Task("Walk Dog", "Walk the dog around the block");
-        user = new User();
+        user = new User("id1", "John", "Doe");
     }
 
 
