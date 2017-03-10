@@ -137,6 +137,10 @@ public class TodoActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+
+            // TODO change into a switch case based on position, each case instantiating
+            // the correct fragment
+
             return PlaceholderFragment.newInstance(position + 1);
         }
 
@@ -150,13 +154,13 @@ public class TodoActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "To Do";
+                    return getString(R.string.to_do);
                 case 1:
-                    return "Calendar";
+                    return getString(R.string.calendar);
                 case 2:
-                    return "Metrics";
+                    return getString(R.string.metrics);
                 case 3:
-                    return "Contacts";
+                    return getString(R.string.contacts);
             }
             return null;
         }
