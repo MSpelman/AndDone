@@ -21,7 +21,8 @@ import android.widget.TextView;
 
 import com.example.anddone.dummy.DummyContent;
 
-public class TodoActivity extends AppCompatActivity implements TodoTabFragment.OnListFragmentInteractionListener {
+public class TodoActivity extends AppCompatActivity
+        implements TodoTabFragment.OnListFragmentInteractionListener, CalendarFragment.OnListFragmentInteractionListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -142,9 +143,14 @@ public class TodoActivity extends AppCompatActivity implements TodoTabFragment.O
 
             // TODO change into a switch case based on position, each case instantiating
             // the correct fragment
-            if (position == 0) return TodoTabFragment.newInstance(position + 1);
-
-             else return PlaceholderFragment.newInstance(position + 1);
+            switch (position) {
+                case 0:
+                    return TodoTabFragment.newInstance(position + 1);
+                case 1:
+                    return CalendarFragment.newInstance(position + 1);
+                default:
+                    return PlaceholderFragment.newInstance(position + 1);
+            }
         }
 
         @Override
