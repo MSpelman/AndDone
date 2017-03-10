@@ -16,7 +16,7 @@ import com.example.anddone.dummy.DummyContent.DummyItem;
 import java.util.List;
 
 /**
- * A fragment representing a list of Items.
+ * A fragment representing a list of Items. - MAP
  * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
