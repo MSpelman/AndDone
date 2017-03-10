@@ -10,14 +10,12 @@ import java.util.Date;
  * Created by MSpelman on 3/5/17.
  */
 public class ScheduleUnitTest {
-    User user;
     Schedule schedule;
     Day day;
 
     @Before
     public void initialize() {
-        user = new User();
-        schedule = new Schedule(user);
+        schedule = new Schedule();
     }
 
     @Test

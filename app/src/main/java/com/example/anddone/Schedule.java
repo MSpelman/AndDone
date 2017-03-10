@@ -10,15 +10,12 @@ import java.text.SimpleDateFormat;
  * Created by MSpelman on 3/4/17.
  */
 public class Schedule {
-    private User user;
     private HashMap<Date, Day> days;
 
     /**
      * Constructor
-     * @param user  The user the schedule belongs to
      */
-    public Schedule(User user) {
-        this.user = user;
+    public Schedule() {
         days = new HashMap<>();
     }
 

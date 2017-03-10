@@ -20,7 +20,7 @@ public class EventUnitTest {
         tasks = new Task[2];
         tasks[0] = new Task("Walk dog", "Take dog for walk");
         tasks[1] = new Task("Stool sample", "Get stool sample for vet");
-        user = new User();
+        user = new User("id2", "Jane", "Smith");
     }
 
     @Test
