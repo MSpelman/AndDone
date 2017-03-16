@@ -56,4 +56,14 @@ public class Day {
         tasks.toArray(taskArray);
         return taskArray;
     }
+
+    /**
+     * Retrieves the Events associated with this Day
+     * @return An array with the Events
+     */
+    public Event[] getEvents() {
+        Event[] eventArray = new Event[events.size()];
+        events.toArray(eventArray);
+        return eventArray;
+    }
 }

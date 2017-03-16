@@ -12,7 +12,7 @@ public class TodoContent {
 
     public TodoContent() {
         // This code is for testing purposes only, needs to be removed
-        User user = new User("id1", "Harry", "Jones");;
+        User user = new User("id1", "Harry", "Jones");
         Schedule schedule;
         Day today;
         Day tomorrow = null;
