@@ -86,4 +86,12 @@ public class Task implements IScheduleItem {
         sharedWith.toArray(userArray);
         return userArray;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

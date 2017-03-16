@@ -7,21 +7,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.anddone.TodoTabFragment.OnListFragmentInteractionListener;
-import com.example.anddone.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a schedule item and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<IScheduleItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public TodoTabRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public TodoTabRecyclerViewAdapter(List<IScheduleItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -36,8 +35,8 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).getName());
+        holder.mContentView.setText(mValues.get(position).getDescription());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,13 +59,13 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public IScheduleItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = (TextView) view.findViewById(R.id.name);
+            mContentView = (TextView) view.findViewById(R.id.description);
         }
 
         @Override

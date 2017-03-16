@@ -22,7 +22,7 @@ public class Event implements IScheduleItem {
     private int duration;  // Replace type with Duration? How long event lasts
     private String location;
     private int reminderTime;  // Amount of time before Event for reminder
-    private Recurrence recurrance;
+    private Recurrence recurrence;
     private ArrayList<Task> beforeTasks;  // Tasks to complete before Event
     private ArrayList<Task> duringTasks;  // Tasks to be done during Event
     private ArrayList<User> sharedWith;  // Users the Task has been shared with
@@ -102,5 +102,13 @@ public class Event implements IScheduleItem {
         User[] userArray = new User[sharedWith.size()];
         sharedWith.toArray(userArray);
         return userArray;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

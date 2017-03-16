@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.anddone.CalendarFragment.OnListFragmentInteractionListener;
-import com.example.anddone.dummy.DummyContent.DummyItem;
+import com.example.anddone.DummyContent.DummyItem;
 
 import java.util.List;
 
