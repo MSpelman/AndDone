@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.example.anddone.DummyContent.DummyItem;
 
 /**
- * A fragment representing a list of Items.
+ * A fragment representing a list of Items. - MAP
  * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
