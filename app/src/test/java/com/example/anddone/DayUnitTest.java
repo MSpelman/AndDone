@@ -32,7 +32,11 @@ public class DayUnitTest {
 
     @Test
     public void addEventTest() throws Exception {
-        assertEquals(4, 2 + 2);
+        Event event = new Event("CS 407 Project", "Meet with group to work on project");
+        Event[] eventArray = day.getEvents();
+        int numberOfEvents = eventArray.length;
+        day.addEvent(event);
+        assertEquals((numberOfEvents + 1), day.getEvents().length);
     }
 
     @Test

@@ -3,6 +3,7 @@ package com.example.anddone;
 //import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Event
@@ -22,7 +23,7 @@ public class Event implements IScheduleItem {
     private int duration;  // Replace type with Duration? How long event lasts
     private String location;
     private int reminderTime;  // Amount of time before Event for reminder
-    private Recurrence recurrance;
+    private Recurrence recurrence;
     private ArrayList<Task> beforeTasks;  // Tasks to complete before Event
     private ArrayList<Task> duringTasks;  // Tasks to be done during Event
     private ArrayList<User> sharedWith;  // Users the Task has been shared with
@@ -38,6 +39,15 @@ public class Event implements IScheduleItem {
     public Event(String name, String description) {
         this.name = name;
         this.description = description;
+        beforeTasks = new ArrayList<>();
+        duringTasks = new ArrayList<>();
+        sharedWith = new ArrayList<>();
+    }
+
+    public Event(String name, String description, Date startTime) {
+        this.name = name;
+        this.description = description;
+        this.startTime = startTime;
         beforeTasks = new ArrayList<>();
         duringTasks = new ArrayList<>();
         sharedWith = new ArrayList<>();
@@ -102,5 +112,21 @@ public class Event implements IScheduleItem {
         User[] userArray = new User[sharedWith.size()];
         sharedWith.toArray(userArray);
         return userArray;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getTime() {
+        if (startTime != null) {
+            SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+            return format.format(startTime);
+        }
+        return "";
     }
 }

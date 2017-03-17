@@ -1,27 +1,29 @@
 package com.example.anddone;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.anddone.TodoTabFragment.OnListFragmentInteractionListener;
-import com.example.anddone.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a schedule item and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<IScheduleItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public TodoTabRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public TodoTabRecyclerViewAdapter(List<IScheduleItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -36,9 +38,13 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
-
+        holder.mTimeView.setText(mValues.get(position).getTime());
+        holder.mTimeView.setId(position);
+        holder.mNameView.setText(mValues.get(position).getName());
+        holder.mNameView.setId(position);
+        holder.mDescriptionView.setText(mValues.get(position).getDescription());
+        holder.mDescriptionView.setId(position);
+        holder.mRow.setId(position);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,20 +64,39 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
-
+        public final TextView mTimeView;
+        public final TextView mNameView;
+        public final TextView mDescriptionView;
+        public IScheduleItem mItem;
+        public final LinearLayout mRow;
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mRow = (LinearLayout)view.findViewById(R.id.rowLayout);
+            mRow.setOnClickListener(new customListener());
+            mTimeView = (TextView) view.findViewById(R.id.time);
+            mTimeView.setOnClickListener(new customListener());
+//            mTimeView.setBackgroundColor(Color.BLUE);
+            mNameView = (TextView) view.findViewById(R.id.name);
+            mNameView.setOnClickListener(new customListener());
+            mDescriptionView = (TextView) view.findViewById(R.id.description);
+            mDescriptionView.setOnClickListener(new customListener());
         }
 
+        public class customListener implements View.OnClickListener{
+            @Override
+            public void onClick(View v){
+                //pop up alert dialog box (or whatever..)
+                IScheduleItem isi = mValues.get(v.getId());
+                Log.d("JOSH","TEST ON CLICK " + v.getId() + " " + isi.getName());
+            }
+        }
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return " '" + mDescriptionView.getText() + "'";
         }
     }
+
+
+
 }

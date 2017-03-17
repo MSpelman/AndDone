@@ -3,6 +3,8 @@ package com.example.anddone;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Unit test for the Event class
@@ -16,7 +18,11 @@ public class EventUnitTest {
 
     @Before
     public void initialize() {
-        event = new Event("Vet Appointment", "Heart worm check and rabies vaccination");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR, 1);
+        calendar.set(Calendar.MINUTE, 0);
+        event = new Event("Vet Appointment", "Heart worm check and rabies vaccination", calendar.getTime());
         tasks = new Task[2];
         tasks[0] = new Task("Walk dog", "Take dog for walk");
         tasks[1] = new Task("Stool sample", "Get stool sample for vet");
@@ -45,5 +51,10 @@ public class EventUnitTest {
         int numberOfUsers = userArray.length;
         event.shareWith(user);
         assertEquals((numberOfUsers + 1), event.getSharedWith().length);
+    }
+
+    @Test
+    public void getTimeTest() throws Exception {
+        assertEquals("1:00 PM", event.getTime());
     }
 }

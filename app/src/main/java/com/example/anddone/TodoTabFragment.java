@@ -10,14 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.anddone.dummy.DummyContent;
-import com.example.anddone.dummy.DummyContent.DummyItem;
-
-import java.util.List;
-
 /**
  * A fragment representing a list of Items.
- * <p/>
+ *
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
@@ -28,6 +23,7 @@ public class TodoTabFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private TodoContent todoContent;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -60,6 +56,8 @@ public class TodoTabFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_todo_tab_list, container, false);
 
+        todoContent = new TodoContent();
+
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -69,7 +67,7 @@ public class TodoTabFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new TodoTabRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new TodoTabRecyclerViewAdapter(todoContent.scheduleItems, mListener));
         }
         return view;
     }
@@ -104,6 +102,6 @@ public class TodoTabFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(IScheduleItem scheduleItem);
     }
 }
