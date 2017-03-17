@@ -9,4 +9,5 @@ package com.example.anddone;
 public interface IScheduleItem {
     public String getName();
     public String getDescription();
+    public String getTime();
 }

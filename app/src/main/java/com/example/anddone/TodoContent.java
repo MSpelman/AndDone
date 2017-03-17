@@ -1,6 +1,7 @@
 package com.example.anddone;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
 
@@ -24,9 +25,15 @@ public class TodoContent {
         Task[] todaysTasks;
 
         todaysTasks = today.getTasks();
+        todaysEvents = today.getEvents();
+        scheduleItems.add(new Task("Today", ""));
 
         for (int i = 0; i < todaysTasks.length; i++) {
             scheduleItems.add(todaysTasks[i]);
+        }
+
+        for (int i = 0; i < todaysEvents.length; i++) {
+            scheduleItems.add(todaysEvents[i]);
         }
     }
 
@@ -34,9 +41,18 @@ public class TodoContent {
         Schedule schedule = user.getSchedule();
         Day today = new Day(new Date());
         schedule.addDay(today);
-        Event event = new Event("Group Meeting", "Meet with group");
+
+        // Add Event
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR, 1);
+        calendar.set(Calendar.MINUTE, 0);
+        Event event = new Event("Group Meeting", "Meet with CS 470 group", calendar.getTime());
         today.addEvent(event);
-        Task task = new Task("Walk Dog", "Walk the dog");
+
+        // Add Task
+        calendar.set(Calendar.HOUR, 22);
+        Task task = new Task("354 HW2", "354 HW 2 is due", calendar.getTime());
         today.addTask(task);
         return schedule;
     }

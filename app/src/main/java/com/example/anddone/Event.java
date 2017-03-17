@@ -3,6 +3,7 @@ package com.example.anddone;
 //import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Event
@@ -38,6 +39,15 @@ public class Event implements IScheduleItem {
     public Event(String name, String description) {
         this.name = name;
         this.description = description;
+        beforeTasks = new ArrayList<>();
+        duringTasks = new ArrayList<>();
+        sharedWith = new ArrayList<>();
+    }
+
+    public Event(String name, String description, Date startTime) {
+        this.name = name;
+        this.description = description;
+        this.startTime = startTime;
         beforeTasks = new ArrayList<>();
         duringTasks = new ArrayList<>();
         sharedWith = new ArrayList<>();
@@ -110,5 +120,13 @@ public class Event implements IScheduleItem {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getTime() {
+        if (startTime != null) {
+            SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+            return format.format(startTime);
+        }
+        return "";
     }
 }

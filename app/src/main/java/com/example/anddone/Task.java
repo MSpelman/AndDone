@@ -3,6 +3,7 @@ package com.example.anddone;
 //import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Task
@@ -37,6 +38,14 @@ public class Task implements IScheduleItem {
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
+        this.completed = false;
+        sharedWith = new ArrayList<>();
+    }
+
+    public Task(String name, String description, Date timeDue) {
+        this.name = name;
+        this.description = description;
+        this.timeDue = timeDue;
         this.completed = false;
         sharedWith = new ArrayList<>();
     }
@@ -93,5 +102,13 @@ public class Task implements IScheduleItem {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getTime() {
+        if (timeDue != null) {
+            SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+            return format.format(timeDue);
+        }
+        return "";
     }
 }
