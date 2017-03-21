@@ -2,6 +2,7 @@ package com.example.anddone;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,14 +38,22 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        AttributeSet attributes;
         holder.mItem = mValues.get(position);
         holder.mTimeView.setText(mValues.get(position).getTime());
         holder.mTimeView.setId(position);
         holder.mNameView.setText(mValues.get(position).getName());
         holder.mNameView.setId(position);
-        holder.mDescriptionView.setText(mValues.get(position).getDescription());
-        holder.mDescriptionView.setId(position);
         holder.mRow.setId(position);
+        String name = mValues.get(position).getName();
+        if (name.equals("Today") || name.equals("Tomorrow")) {
+            holder.mRow.setBackgroundColor(Color.CYAN);
+        } else if ((position % 2) == 0) {
+            holder.mRow.setBackgroundColor(Color.WHITE);
+        } else {
+            holder.mRow.setBackgroundColor(Color.LTGRAY);
+        }
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +75,6 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
         public final View mView;
         public final TextView mTimeView;
         public final TextView mNameView;
-        public final TextView mDescriptionView;
         public IScheduleItem mItem;
         public final LinearLayout mRow;
         public ViewHolder(View view) {
@@ -79,8 +87,6 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
 //            mTimeView.setBackgroundColor(Color.BLUE);
             mNameView = (TextView) view.findViewById(R.id.name);
             mNameView.setOnClickListener(new customListener());
-            mDescriptionView = (TextView) view.findViewById(R.id.description);
-            mDescriptionView.setOnClickListener(new customListener());
         }
 
         public class customListener implements View.OnClickListener{
@@ -93,7 +99,7 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
         }
         @Override
         public String toString() {
-            return " '" + mDescriptionView.getText() + "'";
+            return " '" + mNameView.getText() + "'";
         }
     }
 
