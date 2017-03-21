@@ -46,8 +46,24 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
         holder.mNameView.setId(position);
         holder.mRow.setId(position);
         String name = mValues.get(position).getName();
+
+        // Color coordinate text based on type
+        String itemClass = holder.mItem.getClass().toString();
+        if (itemClass.contains("Event")) {
+            holder.mNameView.setTextColor(Color.MAGENTA);
+        } else {
+            Task item = (Task) holder.mItem;
+            if (item.isCompleted()) {
+                holder.mNameView.setTextColor(Color.BLACK);
+            } else {
+                holder.mNameView.setTextColor(Color.BLUE);
+            }
+        }
+
+        // Set background color of subheadings and alternating rows
         if (name.equals("Today") || name.equals("Tomorrow")) {
             holder.mRow.setBackgroundColor(Color.CYAN);
+            holder.mNameView.setTextColor(Color.BLACK);
         } else if ((position % 2) == 0) {
             holder.mRow.setBackgroundColor(Color.WHITE);
         } else {

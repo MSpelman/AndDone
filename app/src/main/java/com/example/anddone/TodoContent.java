@@ -63,15 +63,14 @@ public class TodoContent {
 
         /* TODAY */
         Day today = new Day(new Date());
-        schedule.addDay(today);
 
-        // Add Task - 11:30 am CS 354 HW4 - Blue
+        // Add Task - 11:30 pm CS 354 HW4 - Blue
         calendar.set(Calendar.HOUR, 11);
         calendar.set(Calendar.MINUTE, 30);
         Task task = new Task("CS 354 HW4", "354 HW 4 is due", calendar.getTime());
         today.addTask(task);
 
-        // Add Task w/o time - Walk Dog - Completed - Gray
+        // Add Task w/o time - Walk Dog - Completed - Black
         task = new Task("Walk Dog", "Walk dog around block");
         task.completeTask();
         today.addTask(task);
@@ -82,14 +81,16 @@ public class TodoContent {
         Event event = new Event("Group Meeting", "Meet with CS 470 group", calendar.getTime());
         today.addEvent(event);
 
+        schedule.addDay(today);
+
         /* TOMORROW */
         calendar.roll(Calendar.DATE, 1);
         Day tomorrow = new Day (calendar.getTime());
-        schedule.addDay(tomorrow);
 
-        // Add Task - 11:00 pm CS 367 HW3 - Completed - Gray
-        calendar.set(Calendar.HOUR, 22);
+        // Add Task - 11:00 pm CS 367 HW3 - Completed - Black
+        calendar.set(Calendar.HOUR, 11);
         task = new Task("CS 367 HW3", "367 HW3 is due", calendar.getTime());
+        task.completeTask();
         tomorrow.addTask(task);
 
         // Add Task w/o time - Walk Dog - Blue
@@ -99,7 +100,10 @@ public class TodoContent {
         // Add Event - 5:00 pm Group Meeting - Pink
         calendar.set(Calendar.HOUR, 5);
         calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.AM_PM, Calendar.PM);
         event = new Event("Group Meeting", "Meet with CS 506 group", calendar.getTime());
         tomorrow.addEvent(event);
+
+        schedule.addDay(tomorrow);
     }
 }
