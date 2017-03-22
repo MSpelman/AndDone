@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Button;
 
 import com.example.anddone.TodoTabFragment.OnListFragmentInteractionListener;
 
@@ -17,7 +18,6 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a schedule item and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecyclerViewAdapter.ViewHolder> {
 
@@ -62,8 +62,10 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
 
         // Set background color of subheadings and alternating rows
         if (name.equals("Today") || name.equals("Tomorrow")) {
-            holder.mRow.setBackgroundColor(Color.CYAN);
-            holder.mNameView.setTextColor(Color.BLACK);
+            holder.mRow.setBackgroundColor(Color.BLACK);
+            holder.mNameView.setTextColor(Color.WHITE);
+            holder.mButtonView.setVisibility(View.VISIBLE);
+            holder.mButtonView.setEnabled(true);
         } else if ((position % 2) == 0) {
             holder.mRow.setBackgroundColor(Color.WHITE);
         } else {
@@ -93,6 +95,7 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
         public final TextView mNameView;
         public IScheduleItem mItem;
         public final LinearLayout mRow;
+        public final Button mButtonView;
         public ViewHolder(View view) {
             super(view);
             mView = view;
@@ -100,9 +103,10 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
             mRow.setOnClickListener(new customListener());
             mTimeView = (TextView) view.findViewById(R.id.time);
             mTimeView.setOnClickListener(new customListener());
-//            mTimeView.setBackgroundColor(Color.BLUE);
             mNameView = (TextView) view.findViewById(R.id.name);
             mNameView.setOnClickListener(new customListener());
+            mButtonView = (Button) view.findViewById(R.id.button);
+            mButtonView.setOnClickListener(new AddListener());
         }
 
         public class customListener implements View.OnClickListener{
@@ -111,6 +115,13 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
                 //pop up alert dialog box (or whatever..)
                 IScheduleItem isi = mValues.get(v.getId());
                 Log.d("JOSH","TEST ON CLICK " + v.getId() + " " + isi.getName());
+            }
+        }
+
+        public class AddListener implements View.OnClickListener{
+            @Override
+            public void onClick(View v){
+                Log.d("Michael", "Add Button Clicked");
             }
         }
         @Override

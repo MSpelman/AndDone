@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
+//import android.content.Context;
+//import android.content.res.Resources;
+
 
 /**
  * Helper class for providing content for the To do fragment

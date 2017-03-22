@@ -19,4 +19,16 @@
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="?attr/textAppearanceListItem" />
 
+    <Button
+        android:id="@+id/button"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:textAlignment="textEnd"
+        android:layout_gravity="end"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="+"
+        android:enabled="false"
+        android:visibility="invisible" />
+
 </LinearLayout>
