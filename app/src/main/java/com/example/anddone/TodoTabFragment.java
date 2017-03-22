@@ -56,7 +56,7 @@ public class TodoTabFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_todo_tab_list, container, false);
 
-        todoContent = new TodoContent();
+        todoContent = new TodoContent(this);
 
         // Set the adapter
         if (view instanceof RecyclerView) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
+import android.app.Fragment;
 //import android.content.Context;
 //import android.content.res.Resources;
 
@@ -14,7 +15,7 @@ import java.util.Date;
 public class TodoContent {
     public List<IScheduleItem> scheduleItems = new ArrayList<>();
 
-    public TodoContent() {
+    public TodoContent(TodoTabFragment fragment) {
         // This code is for testing purposes only, needs to be removed
         User user = new User("id1", "Harry", "Jones");
         Schedule schedule;
@@ -31,7 +32,7 @@ public class TodoContent {
 
         todaysTasks = today.getTasks();
         todaysEvents = today.getEvents();
-        scheduleItems.add(new Task("Today", ""));
+        scheduleItems.add(new Task((fragment.getActivity().getText(R.string.today).toString()), ""));
 
         for (int i = 0; i < todaysTasks.length; i++) {
             scheduleItems.add(todaysTasks[i]);
@@ -48,7 +49,7 @@ public class TodoContent {
 
         tomorrowsTasks = tomorrow.getTasks();
         tomorrowsEvents = tomorrow.getEvents();
-        scheduleItems.add(new Task("Tomorrow", ""));
+        scheduleItems.add(new Task((fragment.getActivity().getText(R.string.tomorrow).toString()), ""));
 
         for (int i = 0; i < tomorrowsTasks.length; i++) {
             scheduleItems.add(tomorrowsTasks[i]);
