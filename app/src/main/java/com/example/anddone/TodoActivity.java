@@ -16,8 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.util.Log;
 import android.widget.TextView;
+import android.support.v4.app.FragmentTransaction;
 
 public class TodoActivity extends AppCompatActivity
         implements TodoTabFragment.OnListFragmentInteractionListener, CalendarFragment.OnListFragmentInteractionListener{
@@ -178,6 +179,17 @@ public class TodoActivity extends AppCompatActivity
     }
 
     public void onListFragmentInteraction(IScheduleItem scheduleItem) {
+        Log.d("TodoActivity", scheduleItem.getName());  // This works and has access to scheduleItem
 
+        PlaceholderFragment newFragment = PlaceholderFragment.newInstance(2);
+
+        //SectionsPagerAdapter myAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        //myAdapter.
+        //onAttachFragment(newFragment);
+
+        FragmentTransaction txn = getSupportFragmentManager().beginTransaction();
+        txn.replace(R.id.container, newFragment);
+        txn.addToBackStack(null);
+        txn.commit();
     }
 }
