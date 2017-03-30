@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v4.app.FragmentManager;
 
 /**
  * A fragment representing a list of Items.
@@ -67,11 +69,10 @@ public class TodoTabFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new TodoTabRecyclerViewAdapter(todoContent.scheduleItems, mListener));
+            recyclerView.setAdapter(new TodoTabRecyclerViewAdapter(todoContent.scheduleItems, mListener, this));
         }
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -90,6 +91,10 @@ public class TodoTabFragment extends Fragment {
         mListener = null;
     }
 
+    public void onListItemClick(View v) {
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -101,6 +106,6 @@ public class TodoTabFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(IScheduleItem scheduleItem);
+        void onListFragmentInteraction(IScheduleItem scheduleItem, Fragment currentFragment);
     }
 }

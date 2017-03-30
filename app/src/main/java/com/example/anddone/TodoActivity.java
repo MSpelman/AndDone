@@ -11,14 +11,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.util.Log;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTransaction;
+
+// import android.app.FragmentManager;
 
 public class TodoActivity extends AppCompatActivity
         implements TodoTabFragment.OnListFragmentInteractionListener, CalendarFragment.OnListFragmentInteractionListener{
@@ -67,7 +72,6 @@ public class TodoActivity extends AppCompatActivity
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -88,6 +92,14 @@ public class TodoActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_item, menu);
+
     }
 
     /**
@@ -120,6 +132,7 @@ public class TodoActivity extends AppCompatActivity
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_todo, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            Log.d("JOSH","hello world on fragment.");
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
@@ -174,22 +187,43 @@ public class TodoActivity extends AppCompatActivity
         }
     }
 
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.complete:
+                return true;
+            case R.id.start:
+                return true;
+            case R.id.details:
+                return true;
+            case R.id.edit:
+                return true;
+            case R.id.delete:
+                return true;
+            case R.id.cancel:
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
     }
 
-    public void onListFragmentInteraction(IScheduleItem scheduleItem) {
+    public void onListFragmentInteraction(IScheduleItem scheduleItem, Fragment currentFragment) {
         Log.d("TodoActivity", scheduleItem.getName());  // This works and has access to scheduleItem
+        PlaceholderFragment newFragment = PlaceholderFragment.newInstance(3);
 
-        PlaceholderFragment newFragment = PlaceholderFragment.newInstance(2);
+        // Test context menu code
 
         //SectionsPagerAdapter myAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        //myAdapter.
         //onAttachFragment(newFragment);
-
-        FragmentTransaction txn = getSupportFragmentManager().beginTransaction();
-        txn.replace(R.id.container, newFragment);
-        txn.addToBackStack(null);
-        txn.commit();
+        //mSectionsPagerAdapter.instantiateItem(mViewPager,2);
+        //FragmentTransaction txn = getSupportFragmentManager().beginTransaction();
+        //FragmentTransaction txn = currentFragment.getFragmentManager().beginTransaction();
+        //txn.replace(R.id.container, newFragment);
+        //txn.addToBackStack(null);  // Also override onBackPressed() in main activity class
+        //txn.commit();
     }
 }

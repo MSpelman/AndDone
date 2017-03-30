@@ -1,15 +1,21 @@
 package com.example.anddone;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Button;
+import android.view.ContextMenu;
 
 import com.example.anddone.TodoTabFragment.OnListFragmentInteractionListener;
 
@@ -23,10 +29,12 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
 
     private final List<IScheduleItem> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private final TodoTabFragment fragment;
 
-    public TodoTabRecyclerViewAdapter(List<IScheduleItem> items, OnListFragmentInteractionListener listener) {
+    public TodoTabRecyclerViewAdapter(List<IScheduleItem> items, OnListFragmentInteractionListener listener, TodoTabFragment fragment) {
         mValues = items;
         mListener = listener;
+        this.fragment = fragment;
     }
 
     @Override
@@ -78,7 +86,30 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+
+                    mListener.onListFragmentInteraction(holder.mItem, fragment);
+
+                    /*
+                    Context context = v.getContext();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);//need context
+                    LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE);
+                    View v = inflater.inflate(R.layout.textbox, null);
+                    //above line makes a new view with a given xml (textbox) in this case.
+                    //next line gets the input text box from that view. (notice the v. )
+                    final EditText dialogBoxText = (EditText)v.findViewById(R.id.menuBox1);
+                    final TextView selected = (TextView)ll.getChildAt(item.getItemId());
+                    builder.setView(v);
+                    builder.setTitle("Add Description");
+                    builder.setCancelable(true);
+                    builder.setPositiveButton("ok",new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int id){
+                            //Do something on okay push!
+                            //Take the text from the dialog box and replace the text view with it.
+                            selected.setText(dialogBoxText.getText().toString());
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show(); */
                 }
             }
         });
@@ -96,11 +127,13 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
         public IScheduleItem mItem;
         public final LinearLayout mRow;
         public final Button mButtonView;
+
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mRow = (LinearLayout)view.findViewById(R.id.rowLayout);
             mRow.setOnClickListener(new customListener());
+            fragment.registerForContextMenu(mRow);
             mTimeView = (TextView) view.findViewById(R.id.time);
             mTimeView.setOnClickListener(new customListener());
             mNameView = (TextView) view.findViewById(R.id.name);
