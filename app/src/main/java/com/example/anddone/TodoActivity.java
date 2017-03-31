@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.util.Log;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTransaction;
@@ -92,14 +93,6 @@ public class TodoActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_item, menu);
-
     }
 
     /**
@@ -184,26 +177,6 @@ public class TodoActivity extends AppCompatActivity
                     return getString(R.string.contacts);
             }
             return null;
-        }
-    }
-
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-            case R.id.complete:
-                return true;
-            case R.id.start:
-                return true;
-            case R.id.details:
-                return true;
-            case R.id.edit:
-                return true;
-            case R.id.delete:
-                return true;
-            case R.id.cancel:
-                return true;
-            default:
-                return super.onContextItemSelected(item);
         }
     }
 

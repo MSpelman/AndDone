@@ -1,5 +1,6 @@
 package com.example.anddone;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,11 +32,17 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
     private final List<IScheduleItem> mValues;
     private final OnListFragmentInteractionListener mListener;
     private final TodoTabFragment fragment;
+    private final Activity activity;
+    private AdapterView.AdapterContextMenuInfo menuInfo;
 
-    public TodoTabRecyclerViewAdapter(List<IScheduleItem> items, OnListFragmentInteractionListener listener, TodoTabFragment fragment) {
+    public TodoTabRecyclerViewAdapter(List<IScheduleItem> items,
+                                      OnListFragmentInteractionListener listener,
+                                      TodoTabFragment fragment,
+                                      Activity activity) {
         mValues = items;
         mListener = listener;
         this.fragment = fragment;
+        this.activity = activity;
     }
 
     @Override
@@ -54,6 +62,9 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
         holder.mNameView.setId(position);
         holder.mRow.setId(position);
         String name = mValues.get(position).getName();
+
+        fragment.registerForContextMenu(holder.mView);
+        menuInfo = new AdapterView.AdapterContextMenuInfo(holder.mView, position, holder.mView.getId());
 
         // Color coordinate text based on type
         String itemClass = holder.mItem.getClass().toString();
@@ -120,6 +131,10 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
         return mValues.size();
     }
 
+    public IScheduleItem getItem(int position) {
+        return mValues.get(position);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mTimeView;
@@ -131,9 +146,9 @@ public class TodoTabRecyclerViewAdapter extends RecyclerView.Adapter<TodoTabRecy
         public ViewHolder(View view) {
             super(view);
             mView = view;
+            //mView
             mRow = (LinearLayout)view.findViewById(R.id.rowLayout);
             mRow.setOnClickListener(new customListener());
-            fragment.registerForContextMenu(mRow);
             mTimeView = (TextView) view.findViewById(R.id.time);
             mTimeView.setOnClickListener(new customListener());
             mNameView = (TextView) view.findViewById(R.id.name);

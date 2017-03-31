@@ -6,11 +6,16 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.FragmentManager;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 
 /**
  * A fragment representing a list of Items.
@@ -26,6 +31,8 @@ public class TodoTabFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private TodoContent todoContent;
+    private TodoTabRecyclerViewAdapter adapter;
+    private View view;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -56,7 +63,7 @@ public class TodoTabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_todo_tab_list, container, false);
+        view = inflater.inflate(R.layout.fragment_todo_tab_list, container, false);
 
         todoContent = new TodoContent(this);
 
@@ -69,7 +76,8 @@ public class TodoTabFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new TodoTabRecyclerViewAdapter(todoContent.scheduleItems, mListener, this));
+            adapter = new TodoTabRecyclerViewAdapter(todoContent.scheduleItems, mListener, this, this.getActivity());
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }
@@ -93,6 +101,50 @@ public class TodoTabFragment extends Fragment {
 
     public void onListItemClick(View v) {
 
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        if (info == null) Log.d("onCreateContextMenu", "menuInfo is null");
+        //IScheduleItem item = adapter.getItem(info.position);
+        //info.id = 1;
+        //info = new AdapterView.AdapterContextMenuInfo(v, 1, 1);
+        //Log.d("onCreateContextMenu", String.valueOf(info.id));
+
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.menu_item, menu);
+
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        //IScheduleItem isi = adapter.getItem(info.position);
+        switch (item.getItemId()) {
+            case R.id.complete:
+                Log.d("ContextMenu-item", item.toString());
+                Log.d("ContextMenu-getItemId", String.valueOf(item.getItemId()));
+                if (info == null) Log.d("ContextMenu", "MenuInfo is null");
+                View selectedView = view.findViewById(item.getItemId());
+                //Log.d("onContexItemSelected",selectedView.toString());
+                //Object item = getListAdapter().getItem(info.position);
+
+                return true;
+            case R.id.start:
+                return true;
+            case R.id.details:
+                return true;
+            case R.id.edit:
+                return true;
+            case R.id.delete:
+                return true;
+            case R.id.cancel:
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     /**
